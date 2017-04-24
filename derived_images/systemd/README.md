@@ -15,7 +15,7 @@ $ docker build -t opensuse/systemd .
 To run docker in a container you need to mount cgroup file system volume:
 
 ```
-# docker run --detach --privileged opensuse/systemd
+# docker run --detach -tmpfs /tmp --tmpfs /run -v /sys/fs/cgroup:/sys/fs/cgroup:ro opensuse/systemd
 ```
 
 To test once inside the container, check and see if systemd is working:
