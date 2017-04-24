@@ -14,17 +14,19 @@ else
     gitlab-ci-multi-runner register -n \
         --url http://localhost/ci \
         --executor docker \
-        --description "openSUSEDocker-in-Dcoker Runner" \
+        --description "openSUSE Docker CLI Runner" \
         --docker-image "m407/docker" \
         --docker-volumes /var/run/docker.sock:/var/run/docker.sock:rw \
-        --docker-pull-policy always
-        --tag-list "docker"
+        --docker-pull-policy always \
+        --tag-list "docker";
 
     gitlab-ci-multi-runner register -n \
         --url http://localhost/ci \
         --executor docker \
-        --description "openSUSE Docker Runner" \
+        --description "openSUSE Runner" \
         --docker-image "m407/opensuse" \
-        --docker-pull-policy always
-        --tag-list "simple"
+        --docker-pull-policy always \
+        --tag-list "simple";
+    systemctl enable gitlab-runner;
+    systemctl start gitlab-runner;
 fi
