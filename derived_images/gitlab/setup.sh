@@ -11,8 +11,9 @@ if [ -z ${REGISTRATION_TOKEN+x} ]; then
         chmod -R g+rw .
     popd
 else
+    HOST_NAME=`cat /etc/hostname`;
     gitlab-ci-multi-runner register -n \
-        --url http://localhost/ci \
+        --url http://$HOST_NAME/ci \
         --executor docker \
         --description "openSUSE Docker CLI Runner" \
         --docker-image "m407/docker" \
@@ -21,7 +22,7 @@ else
         --tag-list "docker";
 
     gitlab-ci-multi-runner register -n \
-        --url http://localhost/ci \
+        --url http://$HOST_NAME/ci \
         --executor docker \
         --description "openSUSE Runner" \
         --docker-image "m407/opensuse" \
