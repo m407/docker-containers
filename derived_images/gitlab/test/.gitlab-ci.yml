@@ -1,0 +1,9 @@
+image: m407/docker
+
+before_script:
+- docker info
+
+build:
+  stage: build
+  script:
+  - docker build -t my-docker-image .
