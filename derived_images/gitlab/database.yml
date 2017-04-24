@@ -1,0 +1,12 @@
+#
+# PRODUCTION
+#
+production:
+  adapter: postgresql
+  encoding: unicode
+  database: gitlab
+  pool: 10
+  username: git
+  password: git
+  host: localhost
+  port: 5432 
