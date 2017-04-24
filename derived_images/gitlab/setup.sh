@@ -1,6 +1,11 @@
 #!/bin/bash
 
+HOST_NAME=`cat /etc/hostname`;
+
 if [ -z ${REGISTRATION_TOKEN+x} ]; then
+    sed -i 's|^\(\s*host:\s\)\(.*\)|\1$HOST_NAME|' /srv/www/vhosts/gitlab-ce/config/gitlab.yml;
+    systemctl restart gitlab-ce-unicorn.service;
+
     pushd /srv/www/vhosts/gitlab-ce
         chown -R root:gitlab .
         chmod -R g+rw .
@@ -11,7 +16,6 @@ if [ -z ${REGISTRATION_TOKEN+x} ]; then
         chmod -R g+rw .
     popd
 else
-    HOST_NAME=`cat /etc/hostname`;
     gitlab-ci-multi-runner register -n \
         --url http://$HOST_NAME/ci \
         --executor docker \
