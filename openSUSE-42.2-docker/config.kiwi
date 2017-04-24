@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<image schemaversion="6.1" name="openSUSE-42.2-docker-docker-guest">
+<image schemaversion="6.1" name="openSUSE-42.2-docker">
   <description type="system">
     <author>Andrei Kuvshinov</author>
     <contact>andrei@m407.ru</contact>
-    <specification>openSUSE 42.2 docker docker container</specification>
+    <specification>openSUSE 42.2 docker container with docker</specification>
   </description>
   <preferences>
     <type image="docker" container="os422">
