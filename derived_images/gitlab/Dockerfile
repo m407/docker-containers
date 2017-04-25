@@ -1,7 +1,7 @@
 FROM m407/opensuse-systemd
 MAINTAINER Andrey Kuvshinov <andrei@m407.ru>
 
-ADD pgsql_config.sql pgsql_dump.sql pg.config.sh database.yml gitlab.yml nginx.conf setup.sh /tmp/
+ADD pgsql_config.sql pgsql_dump.sql pg.config.sh database.yml nginx.conf setup.sh /tmp/
 RUN zypper --non-interactive ar -c -p 40 -f http://mirror.yandex.ru/opensuse/repositories/devel:/tools:/scm/openSUSE_Leap_42.2/ devel:tools:scm && \
     zypper --non-interactive ar -c -p 40 -f http://mirror.yandex.ru/opensuse/repositories/devel:/languages:/nodejs/openSUSE_Leap_42.2/ devel:languages:nodejs && \
     zypper --non-interactive ar -c -p 50 -f http://download.opensuse.org/repositories/home:/darix:/apps/openSUSE_Leap_42.2/ home:darix:apps && \
@@ -21,8 +21,8 @@ RUN systemctl enable nginx postgresql redis@default gitlab-ce.target gitlab-work
     chown root:redis /etc/redis/default.conf && \
     pushd /srv/www/vhosts/gitlab-ce/config/ && \
         mv /tmp/database.yml . && \
-        mv /tmp/gitlab.yml . && \
         cp secrets.yml.example secrets.yml && \
+        cp gitlab.yml.example gitlab.yml && \
         chmod g+w secrets.yml && \
         chown -R root.gitlab . && \
         pushd .. && \

@@ -1,11 +1,6 @@
 #!/bin/bash
 
-HOST_NAME=`cat /etc/hostname`;
-
 if [ -z ${REGISTRATION_TOKEN+x} ]; then
-    sed -i 's|^\(\s*host:\s\)\(.*\)|\1$HOST_NAME|' /srv/www/vhosts/gitlab-ce/config/gitlab.yml;
-    systemctl restart gitlab-ce-unicorn.service;
-
     pushd /srv/www/vhosts/gitlab-ce
         chown -R root:gitlab .
         chmod -R g+rw .
@@ -17,7 +12,7 @@ if [ -z ${REGISTRATION_TOKEN+x} ]; then
     popd
 else
     gitlab-ci-multi-runner register -n \
-        --url http://$HOST_NAME/ci \
+        --url http://localhost/ci \
         --executor docker \
         --description "openSUSE Docker CLI Runner" \
         --docker-image "m407/docker" \
@@ -26,7 +21,7 @@ else
         --tag-list "docker";
 
     gitlab-ci-multi-runner register -n \
-        --url http://$HOST_NAME/ci \
+        --url http://localhost/ci \
         --executor docker \
         --description "openSUSE Runner" \
         --docker-image "m407/opensuse" \
